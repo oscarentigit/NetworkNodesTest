@@ -16,7 +16,6 @@ public class Nodo {
         this.vulnerable = vulnerable;
     }
 
-    //Getters
     public String getNombre(){
         return nombre;
     }
@@ -25,8 +24,14 @@ public class Nodo {
         return ip;
     }
 
+    public String getVecinos(){
+        String tmp = "";
+        for(Nodo v : vecinos){
+            tmp += "["+ v.getNombre() +"] -";
+        }
+        return tmp;
+    }
 
-    
     void conectar(Nodo otro) {
         // TODO: conecta este nodo con "otro" (sin duplicados)
         if(!vecinos.contains(otro))
@@ -37,7 +42,7 @@ public class Nodo {
     public String toString() {
         // TODO: devolver algo tipo:
         // "WebServer (172.16.0.10) [VULN] [PWN]" etc.
-
+        
         return "";
     }
 }
