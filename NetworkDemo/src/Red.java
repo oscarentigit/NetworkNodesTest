@@ -5,19 +5,28 @@
 
         Red() {
              // TODO: Realizar constructor
+             nodos = new ArrayList<>();
         }
 
         void agregarNodo(Nodo n) {
             // TODO: añade nodo a la red
+            if(!nodos.contains(n))
+                nodos.add(n);
         }
 
         void conectar(Nodo a, Nodo b) {
             // TODO: conecta a <-> b (bidireccional)
+            a.conectar(a);
+            b.conectar(b);
         }
 
         
         void mostrar() {
             // TODO: imprime topología (nodo -> vecinos)
+            System.out.println("=== GRAFO ===");
+            for (Nodo n : nodos){
+                System.out.println(n.getNombnre()+);
+            }
         }
         
         void resetCompromisos() {
