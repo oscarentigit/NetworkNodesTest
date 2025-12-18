@@ -1,4 +1,6 @@
  import java.util.ArrayList;
+ import java.util.LinkedList;
+ import java.util.Queue;
 
  public class Red {
         ArrayList<Nodo> nodos;
@@ -83,7 +85,12 @@
 
         String listarVecinosDe(Nodo n) {
             // Listar vecinos (iterar vecinos)
-            return "";
+            String tmp = "";
+            for(Nodo v : n.vecinos){
+                tmp += "["+ v.getNombre() +"] -";
+            }
+            return tmp;
+        }
         }
 
         ArrayList<Nodo> nodosAislados() {
