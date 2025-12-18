@@ -14,6 +14,8 @@ public class Nodo {
         this.ip = ip;
         this.firewall = firewall;
         this.vulnerable = vulnerable;
+        this.comprometido = false;
+        this.vecinos = new ArrayList<>();
     }
 
     public String getNombre(){
@@ -40,9 +42,9 @@ public class Nodo {
 
     @Override
     public String toString() {
-        // TODO: devolver algo tipo:
-        // "WebServer (172.16.0.10) [VULN] [PWN]" etc.
-        
-        return "";
+        String estado = "";
+        if (vulnerable) estado += "[VULN]";
+        if (comprometido) estado += "[PWN]";
+        return nombre + " (" + ip + ") " + estado;
     }
 }
