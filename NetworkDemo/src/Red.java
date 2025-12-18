@@ -2,101 +2,101 @@
  import java.util.LinkedList;
  import java.util.Queue;
 
- public class Red {
-        ArrayList<Nodo> nodos;
+public class Red {
+    ArrayList<Nodo> nodos;
 
-        Red() {
-             // TODO: Realizar constructor
-             nodos = new ArrayList<>();
-        }
-
-        void agregarNodo(Nodo n) {
-            // TODO: añade nodo a la red
-            if(!nodos.contains(n))
-                nodos.add(n);
-        }
-
-        void conectar(Nodo a, Nodo b) {
-            // TODO: conecta a <-> b (bidireccional)
-            a.conectar(a);
-            b.conectar(b);
-        }
-
-        
-        void mostrar() {
-            // TODO: imprime topología (nodo -> vecinos)
-            System.out.println("=== GRAFO ===");
-            for (Nodo n : nodos){
-                System.out.println(n.getNombre()+ " -> " + n.getVecinos());
-            }
-        }
-        
-        void resetCompromisos() {
-            for (Nodo n : nodos) {
-                n.comprometido = false;
-            }
-        }
-
-        void escanearDesde(Nodo origen) {
-            // TODO: BFS desde origen - https://www.geeksforgeeks.org/dsa/breadth-first-search-or-bfs-for-a-graph/
-            static ArrayList<Integer> bfs(ArrayList<ArrayList<Integer>> adj) {
-            int V = adj.size();
-            boolean[] vulnerable = new boolean[V];
-            ArrayList<Integer> res = new ArrayList<>();
-            
-            int src = 0;
-            Queue<Integer> q = new LinkedList<>();
-            vulnerable[src] = true;
-            q.add(src);
-
-            while (!q.isEmpty()) {
-                int curr = q.poll();
-                res.add(curr);
-
-                // visit all the unvisited
-                // neighbours of current node
-                for (int x : adj.get(curr)) {
-                    if (!vulnerable[x]) {
-                        vulnerable[x] = true;
-                        q.add(x);
-                    }
-                }
-            }
-        
-        return res;
+    Red() {
+        nodos = new ArrayList<>();
     }
-            // Reglas:
-            // - si un nodo visitado es vulnerable => comprometido=true
-            // - si un nodo visitado es firewall => NO se propaga a sus vecinos
-        }
 
-        Nodo buscarPorIP(String ip) {
-            for (Nodo n : nodos) {
-                if (n.getIp().equals(ip)) {
-                    return n;
-                }
-            }
-            // Buscar por IP (iterar nodos)
-            return null;
-        }
-  
-        int contarVulnerablesAlcanzables(Nodo origen) {
-            // Contar vulnerables alcanzables desde origen (BFS)
-            return 0;
-        }
+    void agregarNodo(Nodo n) {
+        if (!nodos.contains(n))
+            nodos.add(n);
+    }
 
-        String listarVecinosDe(Nodo n) {
-            // Listar vecinos (iterar vecinos)
-            String tmp = "";
-            for(Nodo v : n.vecinos){
-                tmp += "["+ v.getNombre() +"] -";
-            }
-            return tmp;
-        }
-        }
+    void conectar(Nodo a, Nodo b) {
+        a.conectar(b);
+        b.conectar(a);
+    }
 
-        ArrayList<Nodo> nodosAislados() {
-            // Obtener nodos aislados (vecinos.size()==0)
-            return new ArrayList<>();
+    void mostrar() {
+        System.out.println("=== GRAFO ===");
+        for (Nodo n : nodos) {
+            System.out.println(n.getNombre() + " -> " + listarVecinosDe(n));
         }
     }
+
+    void resetCompromisos() {
+        for (Nodo n : nodos) {
+            n.comprometido = false;
+        }
+    }
+
+    void escanearDesde(Nodo origen) {
+        Queue<Nodo> cola = new LinkedList<>();
+        resetCompromisos();
+        cola.add(origen);
+        origen.comprometido = true;
+
+        while (!cola.isEmpty()) {
+            Nodo actual = cola.poll();
+            if (actual.vulnerable) {
+                actual.comprometido = true;
+            }
+            if (actual.firewall) {
+                continue;
+            }
+            for (Nodo vecino : actual.vecinos) {
+                if (!vecino.comprometido) {
+                    vecino.comprometido = true;
+                    cola.add(vecino);
+                }
+            }
+        }
+    }
+
+    Nodo buscarPorIP(String ip) {
+        for (Nodo n : nodos) {
+            if (n.getIp().equals(ip)) {
+                return n;
+            }
+        }
+        return null;
+    }
+
+    int contarVulnerablesAlcanzables(Nodo origen) {
+        int contador = 0;
+        resetCompromisos();
+        Queue<Nodo> cola = new LinkedList<>();
+        cola.add(origen);
+        origen.comprometido = true;
+
+        while (!cola.isEmpty()) {
+            Nodo actual = cola.poll();
+            if (actual.vulnerable) {
+                contador++;
+            }
+            if (actual.firewall) {
+                continue;
+            }
+            for (Nodo vecino : actual.vecinos) {
+                if (!vecino.comprometido) {
+                    vecino.comprometido = true;
+                    cola.add(vecino);
+                }
+            }
+        }
+        return contador;
+    }
+
+    String listarVecinosDe(Nodo n) {
+        String tmp = "";
+        for (Nodo v : n.vecinos) {
+            tmp += "[" + v.getNombre() + "] -";
+        }
+        return tmp;
+
+    }
+}
+
+

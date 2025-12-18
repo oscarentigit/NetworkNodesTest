@@ -28,6 +28,5 @@ public class NetworkDemo {
         System.out.println("\nVecinos de WebServer: " + red.listarVecinosDe(web));
         System.out.println("Buscar IP 172.16.0.20: " + red.buscarPorIP("172.16.0.20"));
         System.out.println("Vulnerables alcanzables desde atacante: " + red.contarVulnerablesAlcanzables(atacante));
-        System.out.println("Nodos aislados: " + red.nodosAislados());
     }
 }
