@@ -82,12 +82,21 @@
         }
 
         String listarVecinosDe(Nodo n) {
-            // Listar vecinos (iterar vecinos)
-            return "";
+            String tmp = "";
+            for (Nodo vecino : n.vecinos) {
+                tmp += vecino.getNombre() + " ";
+            }
+            return tmp;
         }
 
         ArrayList<Nodo> nodosAislados() {
             // Obtener nodos aislados (vecinos.size()==0)
-            return new ArrayList<>();
+            ArrayList<Nodo> aislados = new ArrayList<>();
+            for (Nodo n : nodos) {
+                if (n.vecinos.size() == 0) {
+                    aislados.add(n);
+                }
+            }
+            return aislados;
         }
     }
