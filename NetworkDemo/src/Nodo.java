@@ -10,6 +10,10 @@ public class Nodo {
 
     Nodo(String nombre, String ip, boolean firewall, boolean vulnerable) {
         // TODO: Realizar constructor
+        this.nombre = nombre;
+        this.ip = ip;
+        this.firewall = firewall;
+        this.vulnerable = vulnerable;
     }
 
         
