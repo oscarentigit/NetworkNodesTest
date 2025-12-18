@@ -20,6 +20,10 @@ public class Nodo {
         return nombre;
     }
 
+    public String getIp(){
+        return ip;
+    }
+
     public String getVecinos(){
         String tmp = "";
         for(Nodo v : vecinos){
