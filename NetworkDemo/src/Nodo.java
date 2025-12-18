@@ -38,6 +38,7 @@ public class Nodo {
     public String toString() {
         // TODO: devolver algo tipo:
         // "WebServer (172.16.0.10) [VULN] [PWN]" etc.
+        
         return "";
     }
 }
