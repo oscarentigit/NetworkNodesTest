@@ -25,7 +25,7 @@
             // TODO: imprime topología (nodo -> vecinos)
             System.out.println("=== GRAFO ===");
             for (Nodo n : nodos){
-                System.out.println(n.getNombnre()+);
+                System.out.println(n.getNombre()+ " -> " + n.getVecinos());
             }
         }
         
