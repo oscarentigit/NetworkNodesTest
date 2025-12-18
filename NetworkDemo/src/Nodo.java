@@ -16,7 +16,18 @@ public class Nodo {
         this.vulnerable = vulnerable;
     }
 
-        
+    public String getNombre(){
+        return nombre;
+    }
+
+    public String getVecinos(){
+        String tmp = "";
+        for(Nodo v : vecinos){
+            tmp += "["+ v.getNombre() +"] -";
+        }
+        return tmp;
+    }
+
     void conectar(Nodo otro) {
         // TODO: conecta este nodo con "otro" (sin duplicados)
         if(!vecinos.contains(otro))
