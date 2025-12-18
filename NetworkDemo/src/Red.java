@@ -1,4 +1,6 @@
  import java.util.ArrayList;
+ import java.util.LinkedList;
+ import java.util.Queue;
 
  public class Red {
         ArrayList<Nodo> nodos;
@@ -39,12 +41,12 @@
             // TODO: BFS desde origen - https://www.geeksforgeeks.org/dsa/breadth-first-search-or-bfs-for-a-graph/
             static ArrayList<Integer> bfs(ArrayList<ArrayList<Integer>> adj) {
             int V = adj.size();
-            boolean[] visited = new boolean[V];
+            boolean[] vulnerable = new boolean[V];
             ArrayList<Integer> res = new ArrayList<>();
             
             int src = 0;
             Queue<Integer> q = new LinkedList<>();
-            visited[src] = true;
+            vulnerable[src] = true;
             q.add(src);
 
             while (!q.isEmpty()) {
@@ -54,8 +56,8 @@
                 // visit all the unvisited
                 // neighbours of current node
                 for (int x : adj.get(curr)) {
-                    if (!visited[x]) {
-                        visited[x] = true;
+                    if (!vulnerable[x]) {
+                        vulnerable[x] = true;
                         q.add(x);
                     }
                 }
@@ -84,21 +86,17 @@
         }
 
         String listarVecinosDe(Nodo n) {
+            // Listar vecinos (iterar vecinos)
             String tmp = "";
-            for (Nodo vecino : n.vecinos) {
-                tmp += vecino.getNombre() + " ";
+            for(Nodo v : n.vecinos){
+                tmp += "["+ v.getNombre() +"] -";
             }
             return tmp;
+        }
         }
 
         ArrayList<Nodo> nodosAislados() {
             // Obtener nodos aislados (vecinos.size()==0)
-            ArrayList<Nodo> aislados = new ArrayList<>();
-            for (Nodo n : nodos) {
-                if (n.vecinos.size() == 0) {
-                    aislados.add(n);
-                }
-            }
-            return aislados;
+            return new ArrayList<>();
         }
     }
