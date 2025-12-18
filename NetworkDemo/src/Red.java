@@ -37,12 +37,12 @@
             // TODO: BFS desde origen - https://www.geeksforgeeks.org/dsa/breadth-first-search-or-bfs-for-a-graph/
             static ArrayList<Integer> bfs(ArrayList<ArrayList<Integer>> adj) {
             int V = adj.size();
-            boolean[] visited = new boolean[V];
+            boolean[] vulnerable = new boolean[V];
             ArrayList<Integer> res = new ArrayList<>();
             
             int src = 0;
             Queue<Integer> q = new LinkedList<>();
-            visited[src] = true;
+            vulnerable[src] = true;
             q.add(src);
 
             while (!q.isEmpty()) {
@@ -52,8 +52,8 @@
                 // visit all the unvisited
                 // neighbours of current node
                 for (int x : adj.get(curr)) {
-                    if (!visited[x]) {
-                        visited[x] = true;
+                    if (!vulnerable[x]) {
+                        vulnerable[x] = true;
                         q.add(x);
                     }
                 }
